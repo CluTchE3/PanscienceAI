@@ -1,0 +1,12 @@
+# Node
+node_modules/
+.env
+uploads/
+coverage/
+jest_output.txt
+*.log
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
