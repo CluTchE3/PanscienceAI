@@ -4,6 +4,7 @@ const User = require('../src/models/User');
 const Task = require('../src/models/Task');
 const path = require('path');
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 const dummyPdfPath = path.join(__dirname, 'dummy.pdf');
 const dummyTxtPath = path.join(__dirname, 'dummy.txt');
@@ -23,6 +24,15 @@ describe('Task Endpoints', () => {
   let adminToken;
   let userId;
   let adminId;
+
+  beforeAll(async () => {
+    // Clear all collections at the start of this test suite
+    const collections = mongoose.connection.collections;
+    for (const key in collections) {
+      const collection = collections[key];
+      await collection.deleteMany({});
+    }
+  });
 
   beforeEach(async () => {
     // Register normal user

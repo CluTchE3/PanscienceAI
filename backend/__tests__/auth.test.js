@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../src/server');
 const User = require('../src/models/User');
+const mongoose = require('mongoose');
 
 describe('Auth Endpoints', () => {
   const testUser = {
@@ -8,6 +9,15 @@ describe('Auth Endpoints', () => {
     password: 'password123',
     role: 'user'
   };
+
+  beforeAll(async () => {
+    // Clear all collections at the start of this test suite
+    const collections = mongoose.connection.collections;
+    for (const key in collections) {
+      const collection = collections[key];
+      await collection.deleteMany({});
+    }
+  });
 
   describe('POST /api/auth/register', () => {
     it('should register a new user successfully', async () => {

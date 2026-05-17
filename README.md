@@ -41,7 +41,7 @@ For security reasons, anyone registering from the frontend will be assigned the 
 docker exec -it task_backend node /usr/src/app/src/scripts/seedAdmin.js
 ```
 Once you log in as `admin_user`, you can navigate to the "Manage Users" dashboard to create or upgrade other admin accounts.
-
+cc
 ### API Documentation
 API documentation is provided via Swagger. Once the backend is running, navigate to:
 http://localhost:5000/api-docs

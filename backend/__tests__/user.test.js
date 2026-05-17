@@ -1,10 +1,20 @@
 const request = require('supertest');
 const app = require('../src/server');
 const User = require('../src/models/User');
+const mongoose = require('mongoose');
 
 describe('User Endpoints', () => {
   let adminToken;
   let normalToken;
+
+  beforeAll(async () => {
+    // Clear all collections at the start of this test suite
+    const collections = mongoose.connection.collections;
+    for (const key in collections) {
+      const collection = collections[key];
+      await collection.deleteMany({});
+    }
+  });
 
   beforeEach(async () => {
     const adminRes = await request(app).post('/api/auth/register').send({
